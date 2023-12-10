@@ -11,6 +11,7 @@ void user_input(char *are[])
 	size_t bufsize = 32;
 	char *token;
 	const char s[2] = " ";
+	int size;
 
 	buffer = (char *)malloc(bufsize * sizeof(char));
 	if( buffer == NULL)
@@ -19,6 +20,10 @@ void user_input(char *are[])
 		exit(1);
 	}
 	getline(&buffer,&bufsize,stdin);
+
+	size = strlen(buffer);
+	buffer[size-1] = '\0';
+
 	token = strtok(buffer, s);
 
 	while( token != NULL )
@@ -52,22 +57,16 @@ void reset_bauf(char *are[])
  */
 int main(void)
 {
-	unsigned int i = 0;
 	int onf = 1;
 	char *buffer[50];
 
 	while (onf)
 	{
 		printf("$ ");
+
 		user_input(buffer);
 
-		while (buffer[i])
-		{
-			printf("%s\n", buffer[i]);
-			i++;
-		}
-		i = 0;
-		/* hna la parti execution */
+		execut_command(buffer);
 
 		reset_bauf(buffer);
 	}

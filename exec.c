@@ -1,35 +1,33 @@
 #include "main.h"
 
 /**
- * main - fork,wait,execve
- * Return: Always 0.
+ * execut_command - fork,wait,execve
+ * Return: ...
  */
 
-int main(void)
+void execut_command(char *args[])
 {
-	char *argv[] = {"/bin/ls", "-l", "/tmp", NULL};
+	int status;
+	char path[128] = "./bin/";
+	char *word = args[0];
+	pid_t pid = fork();
 
-	for (int i = 0; i < 5; i++)
+	strcat(path, word);
+
+	if (pid == -1)
 	{
-		pid_t pid = fork();
-
-		if (pid == -1)
-		{
-			perror("error fork");
-			return (1);
-		}
-		if (pid == 0)
-		{
-			execve("/bin/ls", argv, NULL);
-			perror("error execve");
-			return (1);
-		}
-		else
-		{
-			int status;
-
-			wait(&status);
-		}
+		perror("error fork");
+		exit(EXIT_FAILURE);
 	}
-	return (0);
+	if (pid == 0)
+	{
+		printf ("[%s]\n", path);
+		execve(args[0], args, NULL);
+		perror("error execve");
+		exit(EXIT_FAILURE);
+	}
+	else
+	{
+		wait(&status);
+	}
 }
