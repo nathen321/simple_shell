@@ -8,7 +8,7 @@
 void execut_command(char *args[])
 {
 	int status;
-	char path[128] = "./bin/";
+	char path[128] = "/bin/";
 	char *word = args[0];
 	pid_t pid = fork();
 
@@ -22,7 +22,7 @@ void execut_command(char *args[])
 	if (pid == 0)
 	{
 		printf ("[%s]\n", path);
-		execve(args[0], args, NULL);
+		execve(path, args, NULL);
 		perror("error execve");
 		exit(EXIT_FAILURE);
 	}
