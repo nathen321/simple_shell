@@ -2,6 +2,7 @@
 
 /**
  * execut_command - fork,wait,execve
+ * @args: array of strings
  * Return: ...
  */
 
@@ -21,7 +22,7 @@ void execut_command(char *args[])
 	}
 	if (pid == 0)
 	{
-		printf ("[%s]\n", path);
+		printf("[%s]\n", path);
 		execve(path, args, NULL);
 		perror("error execve");
 		exit(EXIT_FAILURE);

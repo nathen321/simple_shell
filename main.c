@@ -1,7 +1,7 @@
 #include "main.h"
 /**
- * user_input; - take input from the user
- *
+ * user_input - take input from the user
+ * @are: array of string
  * Return: ....
  */
 void user_input(char *are[])
@@ -14,19 +14,19 @@ void user_input(char *are[])
 	int size;
 
 	buffer = (char *)malloc(bufsize * sizeof(char));
-	if( buffer == NULL)
+	if (buffer == NULL)
 	{
 		perror("Unable to allocate buffer");
 		exit(1);
 	}
-	getline(&buffer,&bufsize,stdin);
+	getline(&buffer, &bufsize, stdin);
 
 	size = strlen(buffer);
-	buffer[size-1] = '\0';
+	buffer[size - 1] = '\0';
 
 	token = strtok(buffer, s);
 
-	while( token != NULL )
+	while (token != NULL)
 	{
 		are[i] = token;
 		token = strtok(NULL, s);
@@ -36,7 +36,7 @@ void user_input(char *are[])
 
 /**
  * reset_bauf - reset de command buffer
- *
+ * @are: array of string
  * Return: ....
  */
 void reset_bauf(char *are[])
