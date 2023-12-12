@@ -10,5 +10,8 @@
 #include <sys/stat.h>
 
 void execut_command(char *arg[]);
+void reset_bauf(char *are[]);
+void user_input(char *are[]);
+void print_head(void);
 
 #endif
