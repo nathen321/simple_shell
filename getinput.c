@@ -28,7 +28,7 @@ void user_input(char *are[])
 	size_t bufsize = 32;
 	char *token;
 	const char s[2] = " ";
-	int size;
+	int size = 0;
 	ssize_t chars_read;
 
 	buffer = (char *)malloc(bufsize * sizeof(char));
@@ -41,7 +41,12 @@ void user_input(char *are[])
 
 	chars_read = getline(&buffer, &bufsize, stdin);
 
-	size = strlen(buffer);
+	while (buffer[i])
+	{
+		size++;
+		i++;
+	}
+	i = 0;
 	buffer[size - 1] = '\0';
 	token = strtok(buffer, s);
 

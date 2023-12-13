@@ -9,7 +9,6 @@
 void execut_command(char *args[])
 {
 	int status;
-	char *word = args[0];
 	pid_t pid = fork();
 
 	if (pid == -1)
