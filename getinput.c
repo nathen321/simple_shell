@@ -45,7 +45,7 @@ void user_input(char *are[])
 	buffer[size - 1] = '\0';
 	token = strtok(buffer, s);
 
-	if (chars_read == 1)
+	if (chars_read == 1 || are[0] == s)
 	{
 		reset_bauf(are);
 		return;
