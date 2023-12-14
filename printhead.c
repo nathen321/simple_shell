@@ -6,5 +6,5 @@
  */
 void print_head(void)
 {
-	printf("$ ");
+	printer("$ ");
 }

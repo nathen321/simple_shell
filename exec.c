@@ -10,6 +10,7 @@ void execut_command(char *args[])
 {
 	int status;
 	pid_t pid = fork();
+	struct stat st;
 
 	if (pid == -1)
 	{
@@ -18,7 +19,14 @@ void execut_command(char *args[])
 	}
 	if (pid == 0)
 	{
-		execve(args[0], args, NULL);
+		if (stat(args[0], &st) == 0)
+		{
+			execve(args[0], args, NULL);
+		}
+		else
+		{
+			printf("%s: No such file or directory", args[0]);
+		}
 		perror("error execve");
 		exit(EXIT_FAILURE);
 	}

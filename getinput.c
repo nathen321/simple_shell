@@ -53,6 +53,7 @@ void user_input(char *are[])
 	if (chars_read == 1 || are[0] == s)
 	{
 		reset_bauf(are);
+		free(buffer);
 		return;
 	}
 
