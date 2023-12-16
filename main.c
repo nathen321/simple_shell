@@ -1,32 +1,44 @@
 #include "main.h"
 
 /**
- * main - programme simple shell
+ * main - prgm simple shell
+ * @ac: arg count
+ * @av: arg vector
  *
- * Return: Always 0.
+ * Return: 0 on success, 1 on error
  */
-int main(int argc, char *argv[])
+int main(int ac, char **av)
 {
-	int onf = 1;
-	char *buffer[50];
+	info_t info[] = { INFO_INIT };
+	int fd = 2;
 
-	if (argc > 1)
+	asm ("mov %1, %0\n\t"
+		"add $3, %0"
+		: "=r" (fd)
+		: "r" (fd));
+
+	if (ac == 2)
 	{
-		set_buff(argv, buffer);
-		execut_command(buffer);
-		exit(EXIT_SUCCESS);
+		fd = open(av[1], O_RDONLY);
+		if (fd == -1)
+		{
+			if (errno == EACCES)
+				exit(126);
+			if (errno == ENOENT)
+			{
+				eputs(av[0]);
+				eputs(": 0: Can't open ");
+				eputs(av[1]);
+				eputchar('\n');
+				eputchar(BUF_FLUSH);
+				exit(127);
+			}
+			return (EXIT_FAILURE);
+		}
+		info->readfd = fd;
 	}
-	while (onf)
-	{
-		print_head();
-
-		user_input(buffer);
-
-		if (buffer[0] != NULL)
-			execut_command(buffer);
-
-		reset_bauf(buffer);
-		for_free(buffer);
-	}
-	return (0);
+	populate_env_list(info);
+	read_history(info);
+	hsh(info, av);
+	return (EXIT_SUCCESS);
 }
