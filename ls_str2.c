@@ -1,12 +1,11 @@
 #include "main.h"
-
 /**
- * list_len - determines length of linked list
+ * get_lslen - determines length of linked list
  * @h: pointer to first node
  *
  * Return: size of list
  */
-size_t list_len(const list_t *h)
+size_t get_lslen(const list_t *h)
 {
 	size_t i = 0;
 
@@ -19,15 +18,15 @@ size_t list_len(const list_t *h)
 }
 
 /**
- * list_to_strings - returns an array of strings of the list->str
+ * convert_ls_str - returns an array of strings of the list->str
  * @head: pointer to first node
  *
  * Return: array of strings
  */
-char **list_to_strings(list_t *head)
+char **convert_ls_str(list_t *head)
 {
 	list_t *node = head;
-	size_t i = list_len(head), j;
+	size_t i = get_lslen(head), j;
 	char **strs;
 	char *str;
 
@@ -56,12 +55,12 @@ char **list_to_strings(list_t *head)
 
 
 /**
- * print_list - prints all elements of a list_t linked list
+ * print_ls - prints all elements of a list_t linked list
  * @h: pointer to first node
  *
  * Return: size of list
  */
-size_t print_list(const list_t *h)
+size_t print_ls(const list_t *h)
 {
 	size_t i = 0;
 
@@ -92,7 +91,7 @@ list_t *node_starts_with(list_t *node, char *prefix, char c)
 
 	while (node)
 	{
-		p = starts_with(node->str, prefix);
+		p = starts(node->str, prefix);
 		if (p && ((c == -1) || (*p == c)))
 			return (node);
 		node = node->next;
@@ -101,13 +100,13 @@ list_t *node_starts_with(list_t *node, char *prefix, char c)
 }
 
 /**
- * get_node_index - gets the index of a node
+ * node_index - gets the index of a node
  * @head: pointer to list head
  * @node: pointer to the node
  *
  * Return: index of node or -1
  */
-ssize_t get_node_index(list_t *head, list_t *node)
+ssize_t node_index(list_t *head, list_t *node)
 {
 	size_t i = 0;
 

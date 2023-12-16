@@ -1,15 +1,15 @@
 #include "main.h"
 
 /**
- * _myhistory - displays the history list, one command by line, preceded
+ * myh - displays the h list, one command by line, preceded
  *              with line numbers, starting at 0.
  * @info: Structure containing potential arguments. Used to maintain
  *        constant function prototype.
  *  Return: Always 0
  */
-int _myhistory(info_t *info)
+int myh(info_t *info)
 {
-	print_list(info->history);
+	print_ls(info->h);
 	return (0);
 }
 
@@ -30,8 +30,8 @@ int unset_alias(info_t *info, char *str)
 		return (1);
 	c = *p;
 	*p = 0;
-	ret = delete_node_at_index(&(info->alias),
-		get_node_index(info->alias, node_starts_with(info->alias, str, -1)));
+	ret = rm_node(&(info->alias),
+		node_index(info->alias, node_starts_with(info->alias, str, -1)));
 	*p = c;
 	return (ret);
 }
@@ -54,7 +54,7 @@ int set_alias(info_t *info, char *str)
 		return (unset_alias(info, str));
 
 	unset_alias(info, str);
-	return (add_node_end(&(info->alias), str, 0) == NULL);
+	return (app_node_t(&(info->alias), str, 0) == NULL);
 }
 
 /**
@@ -81,12 +81,12 @@ int print_alias(list_t *node)
 }
 
 /**
- * _myalias - mimics the alias builtin (man alias)
+ * myalias - mimics the alias builtin (man alias)
  * @info: Structure containing potential arguments. Used to maintain
  *          constant function prototype.
  *  Return: Always 0
  */
-int _myalias(info_t *info)
+int myalias(info_t *info)
 {
 	int i = 0;
 	char *p = NULL;
